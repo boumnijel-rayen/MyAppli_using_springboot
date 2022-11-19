@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -23,10 +24,10 @@ public class produit {
     private float prix_liv;
     @OneToMany(mappedBy = "produit")
     @JsonIgnore
-    private Collection<commande> commandes;
-    @OneToMany(mappedBy = "produit")
+    private Collection<commande> commandes = new ArrayList<>();
+    @ManyToMany(mappedBy = "produits")
     @JsonIgnore
-    private Collection<facture> factures;
+    private Collection<facture> factures = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cat")
     private categorie categorie;
@@ -36,4 +37,7 @@ public class produit {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_mag")
     private magasin magasin;
+    @ManyToMany(mappedBy = "produits")
+    @JsonIgnore
+    private Collection<utilisateur> utilisateurs = new ArrayList<>();
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -13,10 +14,7 @@ public class categorie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_cat;
     private String lib_cat;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_u")
-    private utilisateur utilisateur;
     @OneToMany(mappedBy = "categorie")
     @JsonIgnore
-    private Collection<produit> produits;
+    private Collection<produit> produits = new ArrayList<>();
 }

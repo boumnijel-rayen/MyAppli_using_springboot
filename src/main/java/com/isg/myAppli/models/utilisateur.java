@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -24,8 +25,12 @@ public class utilisateur {
     private Date date_naissance;
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore
-    private Collection<categorie> categories;
-    @OneToMany(mappedBy = "utilisateur")
-    @JsonIgnore
-    private Collection<fournisseur> fournisseurs;
+    private Collection<fournisseur> fournisseurs = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "utilisateur_produit",
+            joinColumns = @JoinColumn(name = "id_u"),
+            inverseJoinColumns = @JoinColumn(name = "id_p")
+    )
+    private Collection<produit> produits = new ArrayList<>();
 }

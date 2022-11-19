@@ -1,7 +1,6 @@
 package com.isg.myAppli.controllers;
 
 import com.isg.myAppli.models.utilisateur;
-import com.isg.myAppli.repos.utilisateurRepo;
 import com.isg.myAppli.services.utilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +15,8 @@ public class utilisateurController {
     @Autowired
     private utilisateurService utilisateurService;
 
-    @PostMapping("/save")
-    public ResponseEntity<utilisateur> save(@RequestBody utilisateur utilisateur) {
-        return ResponseEntity.ok(utilisateurService.save(utilisateur));
-    }
-
-    @GetMapping("/findAll")
+    @GetMapping("/all")
     public ResponseEntity<List<utilisateur>> findAll() {
-        return ResponseEntity.ok(utilisateurService.findAll());
+        return ResponseEntity.ok().body(utilisateurService.findAll());
     }
 }

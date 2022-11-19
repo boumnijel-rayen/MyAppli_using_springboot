@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -15,5 +16,5 @@ public class magasin {
     private String lib_mag;
     @OneToMany(mappedBy = "magasin")
     @JsonIgnore
-    private Collection<produit> produits;
+    private Collection<produit> produits = new ArrayList<>();
 }

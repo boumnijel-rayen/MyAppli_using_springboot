@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -19,10 +20,10 @@ public class fournisseur {
     private String telephone_fr;
     @OneToMany(mappedBy = "fournisseur")
     @JsonIgnore
-    private Collection<commande> commandes;
+    private Collection<facture> factures = new ArrayList<>();
     @OneToMany(mappedBy = "fournisseur")
     @JsonIgnore
-    private Collection<facture> factures;
+    private Collection<commande> commandes = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_u")
     private utilisateur utilisateur;
