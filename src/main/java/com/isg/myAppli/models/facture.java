@@ -12,6 +12,7 @@ import java.util.Date;
 @Data
 public class facture {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_f;
 
     @ManyToOne(cascade = CascadeType.ALL)
