@@ -5,21 +5,42 @@ import com.isg.myAppli.models.produit;
 import com.isg.myAppli.models.utilisateur;
 import com.isg.myAppli.repos.produitRepo;
 import com.isg.myAppli.repos.utilisateurRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Service
 @Transactional
-public class utilisateurService {
+@RequiredArgsConstructor
+public class utilisateurService implements UserDetailsService {
 
     @Autowired
     private utilisateurRepo utilisateurRepo;
     @Autowired
     private produitRepo produitRepo;
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+        if (utilisateur == null){
+            throw new UsernameNotFoundException("user not found");
+        }
+        Collection<SimpleGrantedAuthority> authorites = new ArrayList<>();
+        authorites.add(new SimpleGrantedAuthority("USER"));
+        return new User(utilisateur.getEmail(),utilisateur.getPassword(),authorites);
+    }
 
     public List<utilisateur> findAll() {
         return utilisateurRepo.findAll();
@@ -30,6 +51,7 @@ public class utilisateurService {
     }
 
     public utilisateur save(utilisateur utilisateur) {
+        utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
         return utilisateurRepo.save(utilisateur);
     }
 
