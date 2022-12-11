@@ -17,7 +17,6 @@ public class produit {
     private long id_p;
     private String lib_p;
     private String description;
-    private String image;
     private double prix_p;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date date_ajout;

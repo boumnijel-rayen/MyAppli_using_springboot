@@ -2,6 +2,7 @@ package com.isg.myAppli.controllers;
 
 import com.isg.myAppli.models.utilisateur;
 import com.isg.myAppli.services.utilisateurService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,11 @@ public class utilisateurController {
     @GetMapping("/find/{id}")
     public ResponseEntity<utilisateur> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(utilisateurService.findById(id));
+    }
+
+    @PutMapping("/find/email")
+    public ResponseEntity<utilisateur> findByEmail(@RequestBody EmailClass email) {
+        return ResponseEntity.ok().body(utilisateurService.findByEmail(email.getEmail()));
     }
 
     @PostMapping("/add")
@@ -45,4 +51,8 @@ public class utilisateurController {
         utilisateurService.assignProduitToUtilisateur(id_u, id_pr);
         return ResponseEntity.ok().body("produit assigné à l'utilisateur");
     }
+}
+@Data
+class EmailClass{
+    private String email;
 }

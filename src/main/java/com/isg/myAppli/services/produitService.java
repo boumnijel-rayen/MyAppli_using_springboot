@@ -13,4 +13,15 @@ public class produitService {
     @Autowired
     private produitRepo produitRepo;
 
+    public List<produit> findAll() {
+        return produitRepo.findAll();
+    }
+
+    public produit findById(Long id) {
+        return produitRepo.findById(id).get();
+    }
+
+    public produit save(produit produit) {
+        return produitRepo.save(produit);
+    }
 }

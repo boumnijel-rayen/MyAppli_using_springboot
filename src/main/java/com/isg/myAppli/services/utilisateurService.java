@@ -50,6 +50,10 @@ public class utilisateurService implements UserDetailsService {
         return utilisateurRepo.findById(id).get();
     }
 
+    public utilisateur findByEmail(String email) {
+        return utilisateurRepo.findByEmail(email);
+    }
+
     public utilisateur save(utilisateur utilisateur) {
         utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
         return utilisateurRepo.save(utilisateur);
