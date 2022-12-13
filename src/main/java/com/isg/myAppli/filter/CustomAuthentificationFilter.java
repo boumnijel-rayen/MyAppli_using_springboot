@@ -47,7 +47,7 @@ public class CustomAuthentificationFilter extends UsernamePasswordAuthentication
         roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         String access_token = com.auth0.jwt.JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new java.util.Date(System.currentTimeMillis() + 10 * 180 * 1000))
+                .withExpiresAt(new java.util.Date(System.currentTimeMillis() + 60 * 120 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles",roles)
                 .sign(algorithm);

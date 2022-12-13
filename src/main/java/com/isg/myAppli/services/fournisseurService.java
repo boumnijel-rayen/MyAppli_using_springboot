@@ -56,6 +56,7 @@ public class fournisseurService {
             commande.setProduit(null);
             commandeRepo.delete(commande);
         });
+        fournisseurToDelete.setUtilisateur(null);
         fournisseurRepo.deleteById(id_fr);
     }
 

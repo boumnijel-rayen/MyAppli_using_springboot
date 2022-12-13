@@ -13,4 +13,21 @@ public class laboratoireService {
     @Autowired
     private laboratoireRepo laboratoireRepo;
 
+    public List<laboratoire> getAllLaboratoires() {
+        return laboratoireRepo.findAll();
+    }
+
+    public laboratoire getLaboratoireById(long id) {
+        return laboratoireRepo.findById(id).get();
+    }
+
+    public laboratoire addLaboratoire(laboratoire laboratoire) {
+        return laboratoireRepo.save(laboratoire);
+    }
+
+    public laboratoire updateLaboratoire(laboratoire laboratoire, long id) {
+        laboratoire laboratoireToUpdate = laboratoireRepo.findById(id).get();
+        laboratoireToUpdate.setLib_lab(laboratoire.getLib_lab());
+        return laboratoireRepo.save(laboratoireToUpdate);
+    }
 }

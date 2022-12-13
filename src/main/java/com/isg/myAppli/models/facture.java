@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 public class facture {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id_f;
 
     @ManyToOne(cascade = CascadeType.ALL)
