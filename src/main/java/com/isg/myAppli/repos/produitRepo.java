@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface produitRepo extends JpaRepository<produit, Long> {
 
-    @Query(value = "SELECT * FROM `produit` WHERE description = :mot or lib_p = :mot",nativeQuery = true)
+    @Query(value = "SELECT * FROM `produit` WHERE description like CONCAT('%',:mot,'%') or lib_p like CONCAT('%',:mot,'%')",nativeQuery = true)
     public List<produit> findByMot(@Param("mot") String mot);
 }
